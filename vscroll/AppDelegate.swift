@@ -63,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                 to: Date())
         let age = Int32(ageComponents.year!)
         Flurry.setAge(age);
-        Flurry.startSession("GJV665GWWF25GPCD25W8", with: FlurrySessionBuilder
+        Flurry.startSession("XXXXXXXX", with: FlurrySessionBuilder
               .init()
               .withCrashReporting(true)
               .withLogLevel(FlurryLogLevelAll))
