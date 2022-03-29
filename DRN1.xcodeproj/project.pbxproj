@@ -22,13 +22,15 @@
 		3264BD14263B9A2500218A21 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3264BD13263B9A2500218A21 /* SettingsView.swift */; };
 		3264BD16263BA1DC00218A21 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3264BD15263BA1DC00218A21 /* UserSettings.swift */; };
 		3264BD18263BC51600218A21 /* TermsOfServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3264BD17263BC51500218A21 /* TermsOfServiceView.swift */; };
+		32670B1727B77F68008FAFF3 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 32670B1627B77F68008FAFF3 /* Kingfisher */; };
 		328F07D12648081E00AA148C /* PrivacyPolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328F07D02648081E00AA148C /* PrivacyPolicyView.swift */; };
-		329985EB24F666830035A898 /* KingfisherSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 329985EA24F666830035A898 /* KingfisherSwiftUI */; };
-		329985ED24F666830035A898 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 329985EC24F666830035A898 /* Kingfisher */; };
+		328F07D32649332700AA148C /* BattleoftheBandsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328F07D22649332700AA148C /* BattleoftheBandsView.swift */; };
+		328F07D52649625100AA148C /* AreUFunnyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 328F07D42649625100AA148C /* AreUFunnyView.swift */; };
 		32A1CDC42633C7C90033CC81 /* Entitlements.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = 32A1CDC32633C7C80033CC81 /* Entitlements.entitlements */; };
 		32A1CDCC2633E00C0033CC81 /* CarPlaySceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A1CDCB2633E00C0033CC81 /* CarPlaySceneDelegate.swift */; };
 		32A1CDD92635ACD40033CC81 /* CarPlay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A1CDD82635ACD40033CC81 /* CarPlay.framework */; };
 		32B73D4F26400DB900330B5B /* CompForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B73D4E26400DB900330B5B /* CompForm.swift */; };
+		32C45AE827DC929D00DACE79 /* InterstitialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C45AE727DC929D00DACE79 /* InterstitialView.swift */; };
 		32C8AB2224EF56C900DF1AAB /* MediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C8AB2124EF56C900DF1AAB /* MediaPlayerView.swift */; };
 		32C8AB2724EFD4BE00DF1AAB /* MediaPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C8AB2624EFD4BE00DF1AAB /* MediaPlayer.swift */; };
 		32C8AB2924EFEA7B00DF1AAB /* PodcastFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C8AB2824EFEA7B00DF1AAB /* PodcastFetcher.swift */; };
@@ -81,10 +83,13 @@
 		3264BD15263BA1DC00218A21 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		3264BD17263BC51500218A21 /* TermsOfServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceView.swift; sourceTree = "<group>"; };
 		328F07D02648081E00AA148C /* PrivacyPolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyView.swift; sourceTree = "<group>"; };
+		328F07D22649332700AA148C /* BattleoftheBandsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BattleoftheBandsView.swift; sourceTree = "<group>"; };
+		328F07D42649625100AA148C /* AreUFunnyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AreUFunnyView.swift; sourceTree = "<group>"; };
 		32A1CDC32633C7C80033CC81 /* Entitlements.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Entitlements.entitlements; sourceTree = "<group>"; };
 		32A1CDCB2633E00C0033CC81 /* CarPlaySceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarPlaySceneDelegate.swift; sourceTree = "<group>"; };
 		32A1CDD82635ACD40033CC81 /* CarPlay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CarPlay.framework; path = System/Library/Frameworks/CarPlay.framework; sourceTree = SDKROOT; };
 		32B73D4E26400DB900330B5B /* CompForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompForm.swift; sourceTree = "<group>"; };
+		32C45AE727DC929D00DACE79 /* InterstitialView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterstitialView.swift; sourceTree = "<group>"; };
 		32C8AB2124EF56C900DF1AAB /* MediaPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerView.swift; sourceTree = "<group>"; };
 		32C8AB2624EFD4BE00DF1AAB /* MediaPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayer.swift; sourceTree = "<group>"; };
 		32C8AB2824EFEA7B00DF1AAB /* PodcastFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodcastFetcher.swift; sourceTree = "<group>"; };
@@ -118,9 +123,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				329985ED24F666830035A898 /* Kingfisher in Frameworks */,
+				32670B1727B77F68008FAFF3 /* Kingfisher in Frameworks */,
 				32A1CDD92635ACD40033CC81 /* CarPlay.framework in Frameworks */,
-				329985EB24F666830035A898 /* KingfisherSwiftUI in Frameworks */,
 				C025433F922ED540D888E475 /* Pods_DRN1.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -148,6 +152,8 @@
 			isa = PBXGroup;
 			children = (
 				321472E7263F9A0C00F4E933 /* RequestSongView.swift */,
+				328F07D22649332700AA148C /* BattleoftheBandsView.swift */,
+				328F07D42649625100AA148C /* AreUFunnyView.swift */,
 			);
 			path = Competitions;
 			sourceTree = "<group>";
@@ -162,9 +168,18 @@
 			path = Legal;
 			sourceTree = "<group>";
 		};
+		32C45AE627DC8F6900DACE79 /* AdView */ = {
+			isa = PBXGroup;
+			children = (
+				32C45AE727DC929D00DACE79 /* InterstitialView.swift */,
+			);
+			path = AdView;
+			sourceTree = "<group>";
+		};
 		32C8AB2524EFD48400DF1AAB /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				3264BD15263BA1DC00218A21 /* UserSettings.swift */,
 				32CD595224EAB97100D48461 /* Stations.swift */,
 				32C8AB2624EFD4BE00DF1AAB /* MediaPlayer.swift */,
 				32C8AB2824EFEA7B00DF1AAB /* PodcastFetcher.swift */,
@@ -216,6 +231,7 @@
 				321472E4263F99E200F4E933 /* Competitions */,
 				32C8AB2524EFD48400DF1AAB /* Core */,
 				32CD592024EA9DCA00D48461 /* AppDelegate.swift */,
+				32C45AE627DC8F6900DACE79 /* AdView */,
 				32CD592224EA9DCA00D48461 /* SceneDelegate.swift */,
 				32CD592424EA9DCA00D48461 /* ContentView.swift */,
 				321472E0263EB2E300F4E933 /* WinView.swift */,
@@ -231,7 +247,6 @@
 				32A1CDC32633C7C80033CC81 /* Entitlements.entitlements */,
 				32A1CDCB2633E00C0033CC81 /* CarPlaySceneDelegate.swift */,
 				3264BD13263B9A2500218A21 /* SettingsView.swift */,
-				3264BD15263BA1DC00218A21 /* UserSettings.swift */,
 				321472E2263EC34D00F4E933 /* TabView.swift */,
 				323518D126478489002408D5 /* NetworkOutageView.swift */,
 			);
@@ -296,8 +311,7 @@
 			);
 			name = DRN1;
 			packageProductDependencies = (
-				329985EA24F666830035A898 /* KingfisherSwiftUI */,
-				329985EC24F666830035A898 /* Kingfisher */,
+				32670B1627B77F68008FAFF3 /* Kingfisher */,
 			);
 			productName = vscroll;
 			productReference = 32CD591D24EA9DCA00D48461 /* DRN1.app */;
@@ -527,10 +541,12 @@
 			files = (
 				32A1CDCC2633E00C0033CC81 /* CarPlaySceneDelegate.swift in Sources */,
 				32CD592124EA9DCA00D48461 /* AppDelegate.swift in Sources */,
+				328F07D52649625100AA148C /* AreUFunnyView.swift in Sources */,
 				32C8AB2724EFD4BE00DF1AAB /* MediaPlayer.swift in Sources */,
 				328F07D12648081E00AA148C /* PrivacyPolicyView.swift in Sources */,
 				32C8AB2924EFEA7B00DF1AAB /* PodcastFetcher.swift in Sources */,
 				32CD592324EA9DCA00D48461 /* SceneDelegate.swift in Sources */,
+				328F07D32649332700AA148C /* BattleoftheBandsView.swift in Sources */,
 				32CD595324EAB97100D48461 /* Stations.swift in Sources */,
 				325419F5250A3CD80034A359 /* safetyscreen.swift in Sources */,
 				32B73D4F26400DB900330B5B /* CompForm.swift in Sources */,
@@ -539,6 +555,7 @@
 				324AD84324F5141300566711 /* NowPlaying.swift in Sources */,
 				321472DF263EA3E300F4E933 /* EULAView.swift in Sources */,
 				32CD592524EA9DCA00D48461 /* ContentView.swift in Sources */,
+				32C45AE827DC929D00DACE79 /* InterstitialView.swift in Sources */,
 				324AD84A24F63AB000566711 /* CityListScene.swift in Sources */,
 				32C8AB2224EF56C900DF1AAB /* MediaPlayerView.swift in Sources */,
 				323518D22647848A002408D5 /* NetworkOutageView.swift in Sources */,
@@ -646,7 +663,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -701,7 +718,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -729,7 +746,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.radiomedia.drn.drn1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -744,17 +761,18 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = vscroll/Entitlements.entitlements;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0;
 				DEVELOPMENT_ASSET_PATHS = "\"vscroll/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = JY9HC8TTU4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = vscroll/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 3.0.0;
+				MARKETING_VERSION = 3.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.radiomedia.drn.drn1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -898,18 +916,13 @@
 			repositoryURL = "https://github.com/onevcat/Kingfisher";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 5.15.0;
+				minimumVersion = 7.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		329985EA24F666830035A898 /* KingfisherSwiftUI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 329985E924F666830035A898 /* XCRemoteSwiftPackageReference "Kingfisher" */;
-			productName = KingfisherSwiftUI;
-		};
-		329985EC24F666830035A898 /* Kingfisher */ = {
+		32670B1627B77F68008FAFF3 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 329985E924F666830035A898 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;

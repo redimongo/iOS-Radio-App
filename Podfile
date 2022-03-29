@@ -7,7 +7,9 @@ target 'DRN1' do
 
   # Pods for DRN1
   pod 'Flurry-iOS-SDK/FlurrySDK'
-
+  pod 'Flurry-iOS-SDK/FlurryMessaging'
+  pod 'Google-Mobile-Ads-SDK'
+  
   target 'DRN1Tests' do
     inherit! :search_paths
     # Pods for testing

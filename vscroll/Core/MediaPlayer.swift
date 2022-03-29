@@ -21,6 +21,7 @@ static var cover = ""
 static var urls = ""
 static var dur = 0
 static var uuid = UIDevice.current.identifierForVendor?.uuidString
+static var playbackSlider:UISlider?
 
 
 var player: AVPlayer?
@@ -156,18 +157,21 @@ func setupRemoteTransportControls() {
     if(MusicPlayer.mediatype == "podcast")
     {
     skipBackwardCommand.isEnabled = true
+    skipBackwardCommand.preferredIntervals = [NSNumber(value: 10)]
+    skipBackwardCommand.addTarget(handler: skipBackward)
+      
     }
     else{
         skipBackwardCommand.isEnabled = false
     }
-    skipBackwardCommand.preferredIntervals = [NSNumber(value: 10)]
-    skipBackwardCommand.addTarget(handler: skipBackward)
-  
+    
+    
    
     let skipForwardCommand = commandCenter.skipForwardCommand
     if(MusicPlayer.mediatype == "podcast")
     {
     skipForwardCommand.isEnabled = true
+    skipForwardCommand.preferredIntervals = [NSNumber(value: 30)]
     }
     else{
         skipForwardCommand.isEnabled = false
@@ -189,6 +193,7 @@ func setupRemoteTransportControls() {
     commandCenter.pauseCommand.addTarget { [unowned self] event in
         if self.player?.rate == 1.0 {
             self.player?.pause()
+            MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = Int(Double((self.player?.currentTime().seconds)!))
             return .success
         }
         return .commandFailed
@@ -205,8 +210,9 @@ func setupRemoteTransportControls() {
                 //print(event.interval)
                 //self.player!.seek(to: CMTimeMakeWithSeconds(CMTimeGetSeconds((self.player?.currentTime())!).advanced(by: -30), preferredTimescale: 1))
                 let currentTime = self.player?.currentTime()
-                self.player?.seek(to: CMTime(seconds: currentTime!.seconds - 30, preferredTimescale: 1), completionHandler: { isCompleted in
+                self.player?.seek(to: CMTime(seconds: currentTime!.seconds - 10, preferredTimescale: 1), completionHandler: { isCompleted in
                     if isCompleted {
+                        MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = Int(Double((self.player?.currentTime().seconds)!))
                     }
                 })
                 return .success
@@ -218,14 +224,35 @@ func setupRemoteTransportControls() {
                 let currentTime = self.player?.currentTime()
                 self.player?.seek(to: CMTime(seconds: currentTime!.seconds + 30, preferredTimescale: 1), completionHandler: { isCompleted in
                     if isCompleted {
+                        MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = Int(Double((self.player?.currentTime().seconds)!))
                     }
                 })
+            
+                
+                
+                
                 return .success
             }
     
 
 }
     
+    func rw(){
+        let currentTime = self.player?.currentTime()
+        self.player?.seek(to: CMTime(seconds: currentTime!.seconds - 10, preferredTimescale: 1), completionHandler: { isCompleted in
+            if isCompleted {
+                MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = Int(Double((self.player?.currentTime().seconds)!))
+            }
+        })
+    }
+    func ff(){
+        let currentTime = self.player?.currentTime()
+        self.player?.seek(to: CMTime(seconds: currentTime!.seconds + 30, preferredTimescale: 1), completionHandler: { isCompleted in
+            if isCompleted {
+                MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPNowPlayingInfoPropertyElapsedPlaybackTime] = Int(Double((self.player?.currentTime().seconds)!))
+            }
+        })
+    }
     
     
     func nowplaying(with artwork: MPMediaItemArtwork, artist: String, song: String, duration: Int){

@@ -9,13 +9,15 @@
 import SwiftUI
 import Flurry_iOS_SDK
 import Kingfisher
-import KingfisherSwiftUI
+import AudioToolbox
+
 
 struct MediaPlayerView: SwiftUI.View {
     
+    
     @State private var uuid = UIDevice.current.identifierForVendor?.uuidString
     @State private var selection = 1
-    @State private var playingtye = ""
+    @State public var playingtye = ""
    //@State var NowPlayingInfo: [NowPlayingData] = []
     @State private var artist = ""
     @State private var song = ""
@@ -23,7 +25,9 @@ struct MediaPlayerView: SwiftUI.View {
     @State private var advertlink = ""
     @State private var refreshrate = 2.0
     @State var showingDetail = false
-   // private let options: KingfisherOptionsInfo = [.processor(ResizingImageProcessor(referenceSize: .init(width:UIScreen.main.bounds.width - 20,height:UIScreen.main.bounds.height / 3)))]
+    @Environment (\.presentationMode) var presentationMode
+   // @Binding var showingDetail: Bool
+  
     
     @State private var playing = ""
     var body: some SwiftUI.View {
@@ -31,28 +35,23 @@ struct MediaPlayerView: SwiftUI.View {
        GeometryReader { geo in
         Group {
             if self.cover.isEmpty {
-            Text("Loading")
-        }
-        else{
-        if geo.size.height == 270 {
+                Text("Loading")
+            }
+            else{
+                if geo.size.height == 270 {
                  
-                                      
+                  
             
                     VStack{
                      
-                    
-                        KFImage(URL(string: self.cover)!, options: [.processor(ResizingImageProcessor(referenceSize: .init(width: geo.size.width,height:250)))])
+                        KFImage(URL(string: self.cover)!)
                             .resizable()
-                            
-                            .renderingMode(.original)
-                            .offset(x: 0, y: 0)
-                            //.clipShape(Circle())
-                            .shadow(radius: 0)
-                            //.overlay(Circle().stroke(Color.green, lineWidth: 5))
+                            //.aspectRatio(contentMode: .fill)
+                            .frame(width:geo.size.width, height:270)
                             .overlay(
                              Rectangle()
                              .fill(Color.black)
-                             .frame(width:geo.size.width)
+                             .frame(width:geo.size.width, height: 80)
                              .opacity(0.8)
                                 .overlay(
                                     HStack(alignment:.center){
@@ -106,19 +105,20 @@ struct MediaPlayerView: SwiftUI.View {
                                             
                                             
                                     }.frame(width: geo.size.width)
-                                    
-                                , alignment: .trailing)
-                             
-                            .frame(width:geo.size.width, height: 80)
-                            , alignment: .bottomTrailing)
-                            .aspectRatio(contentMode: .fill)
-                            .frame(height: 250)
-                            
+                        
+                                )
+                             , alignment: .bottom)
                         
                        
+                           
+                                    
+                       
+                        
+                    
                       
                         
                     }
+                   
                 } else {
                   // START LARGE MEDIA PLAYER
                     
@@ -163,36 +163,68 @@ struct MediaPlayerView: SwiftUI.View {
                                    .multilineTextAlignment(.leading)
                                    .frame(width: geo.size.width * 1.0)
                         
+                       
                         
-                        VStack{
-                            self.selection == 0 ? Image(systemName: "play.circle").resizable().scaledToFit().frame(width: geo.size.width * 0.2) : Image(systemName: "pause.circle").resizable().scaledToFit().frame(width: geo.size.width * 0.2)
-                           
-                        }
-                            
-                        .onTapGesture {
-                           self.selection == 1 ?
-                                MusicPlayer.shared.player?.pause()
-                            :
-                                 MusicPlayer.shared.player?.play()
+                        Spacer()
+                        HStack{
+                          
                                 
-                            if(self.selection == 1) {
-                                  self.selection = 0
+                            if(MusicPlayer.mediatype == "podcast"){
+                           
+                                Image(systemName: "gobackward.10").resizable().scaledToFit().frame(width: geo.size.width * 0.1)
+                                    .onTapGesture {
+                                       
+                                        MusicPlayer.shared.rw()
+                                    }
                             }
-                            else{
-                                  self.selection = 1
+                            VStack{
+                                self.selection == 0 ? Image(systemName: "play.circle").resizable().scaledToFit().frame(width: geo.size.width * 0.2) : Image(systemName: "pause.circle").resizable().scaledToFit().frame(width: geo.size.width * 0.2)
+                               
                             }
-                        }
-                    }
-                    //
+                            .onTapGesture {
+                               self.selection == 1 ?
+                                    MusicPlayer.shared.player?.pause()
+                                :
+                                     MusicPlayer.shared.player?.play()
+                                    
+                                if(self.selection == 1) {
+                                      self.selection = 0
+                                }
+                                else{
+                                      self.selection = 1
+                                }
+                            }
+                            
+                            if(MusicPlayer.mediatype == "podcast"){
+                          
+                            Image(systemName: "goforward.30").resizable().scaledToFit().frame(width: geo.size.width * 0.1)
+                                .onTapGesture {
+                                   
+                                    MusicPlayer.shared.ff()
+                                }
+                            }
+                        
+                            }
                     
+                    //
+                        Spacer()
+                        if UIAccessibility.isVoiceOverRunning {
+                            Button(action: {self.presentationMode.wrappedValue.dismiss()})  {
+                                       Text("Close Media Player Screen")
+                                   }
+                            
+                        }
                     }
                 }
-        }
+            }
             }
           //  Text(playing)
-        
+        .onDisappear{
+            InterstitialAd().loadAd(withAdUnitId: "ca-app-pub-4999865903647931/3126345304")
+        }
             .onAppear{
                 
+              
                            // print(MusicPlayer.cover)
                     
                             self.cover = MusicPlayer.cover
@@ -271,9 +303,12 @@ struct MediaPlayerView: SwiftUI.View {
           
     }
 }
+}
 
 struct MediaPlayerView_Previews: SwiftUI.PreviewProvider {
     static var previews: some SwiftUI.View {
         MediaPlayerView()
     }
 }
+
+

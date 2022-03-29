@@ -10,7 +10,7 @@ import UIKit
 import Flurry_iOS_SDK
 import AVKit
 import CarPlay
-
+import GoogleMobileAds
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,10 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-      
-
-        print("app launch and this is your fav station : "+UserSettings().favStation)
         
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        print("app launch and this is your fav station : "+UserSettings().favStation)
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+       
        
         switch UserSettings().favStation {
         case "DRN1":
@@ -48,6 +49,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        // MusicPlayer.shared.startBackgroundMusic(url:"https://api.drn1.com.au:9000/station/DRN1", type: "radio")
         setupNotifications()
         Flurry.setUserID(UIDevice.current.identifierForVendor?.uuidString)
+        FlurryMessaging.setAutoIntegrationForMessaging()
+        
+        
         switch UserSettings().gender {
             case "Male":
                 Flurry.setGender("m")
@@ -62,15 +66,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                 from: UserSettings().dateofbirth,
                                                 to: Date())
         let age = Int32(ageComponents.year!)
+        UserSettings().age = age
         Flurry.setAge(age);
-        Flurry.startSession("XXXXXXXX", with: FlurrySessionBuilder
+        Flurry.startSession("GJV665GWWF25GPCD25W8", with: FlurrySessionBuilder
               .init()
+              .withIncludeBackgroundSessions(inMetrics: true)
               .withCrashReporting(true)
               .withLogLevel(FlurryLogLevelAll))
         return true
     }
     
     
+    //FLURRY MSG
+    
+    func didReceive(_ message: FlurryMessage) {
+        print("didReceiveMessage = \(message.description)")
+        // additional logic here
+    }
+    
+    func didReceiveAction(withIdentifier identifier: String?, message: FlurryMessage) {
+        print("didReceiveAction \(identifier ?? "no identifier"), Message = \(message.description)");
+        // additional logic here, ex: deeplink. See Flurry Push Sample App for example
+    }
+    
+    // ENDFLURRY MSG
     
     func application(_ application: UIApplication, configurationForConnecting connectingSceneSession: UISceneSession, options: UIScene.ConnectionOptions) -> UISceneConfiguration {
 
@@ -109,6 +128,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     
     //CUSTOM CODE
+    
+   
+    
+   
     
     func setupNotifications() {
            // Get the default notification center instance.

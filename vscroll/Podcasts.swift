@@ -8,8 +8,7 @@
 
 import SwiftUI
 import Flurry_iOS_SDK
-import KingfisherSwiftUI
-
+import Kingfisher
 
 struct ListHeader: View {
     let post: Program
@@ -27,7 +26,7 @@ struct ListHeader: View {
 struct Podcasts: View {
     
      let post: Program
-    
+
     
     @State var showingDetail = false
     @State var podcast: [PodProgram] = []
@@ -45,13 +44,13 @@ struct Podcasts: View {
                                 Image(systemName: "play.circle").resizable().frame(width: 40, height:40)
                                 
                             } .onTapGesture {
-                                                
+                                
                                                 print(podcast.duration.inSeconds)
                                                 let data = ["podcast": post.title, "Episode_title":podcast.title]
                                                 Flurry.logEvent("Podcast_Play", withParameters: data)
                                 
                                                self.showingDetail.toggle()
-                                                            MusicPlayer.shared.startBackgroundMusic(url:"https://dts.podtrac.com/redirect.mp3/\(podcast.enclosureurl)", type: "podcast")
+                                                            MusicPlayer.shared.startBackgroundMusic(url:"https://chrt.fm/track/55D7EE/dts.podtrac.com/redirect.mp3/\(podcast.enclosureurl)", type: "podcast")
                                 MusicPlayer.shared.getArtBoard(artist: self.post.title, song: podcast.title, cover:self.post.icon, urls:"", duration: podcast.duration.inSeconds)
                                               }
                                             .sheet(isPresented: self.$showingDetail) {

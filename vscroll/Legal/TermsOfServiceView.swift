@@ -8,7 +8,6 @@
 
 import SwiftUI
 import Flurry_iOS_SDK
-import KingfisherSwiftUI
 
 
 

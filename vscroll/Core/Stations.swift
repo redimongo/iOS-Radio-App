@@ -64,29 +64,12 @@ class Api {
           }
       .resume()
       }
-   /* func getShows(station: String, retries: Int = 3, completion: @escaping ([Program]) -> Void) {
-        
-        guard let url = URL(string: "https://api.drn1.com.au/api-access/programs/\(station)") else { return }
 
-        let result = URLSession.shared.dataTaskPublisher(for: url)
-            .map { $0.0 }
-            .decode(type: Post.self, decoder: JSONDecoder())
-            .retry(retries)
-        DispatchQueue.main.async{
-            result.sink { _ in } receiveValue: { post in
-                
-                completion(post.programs)
-            }
-            .store(in: &self.subscriptions)
-        }
-        
-        
-    }*/
     
     
     
     
-//TO DO THIS TOMORROW
+
     func getStations(completion: @escaping ([Station]) -> ()) {
         guard let url = URL(string: "https://api.drn1.com.au/station/allstations") else { return }
        

@@ -9,9 +9,8 @@ import SwiftUI
 import AVKit
 import Flurry_iOS_SDK
 import Kingfisher
-import KingfisherSwiftUI
 import CoreLocation
-
+import GoogleMobileAds
 
 struct ContentView: SwiftUI.View {
     //@EnvironmentObject var monitor: Monitor
@@ -29,7 +28,10 @@ struct ContentView: SwiftUI.View {
         return "\(location.lastKnownLocation?.coordinate.longitude ?? 0.0)"
     }
     
+    private var fullScreenAd: InterstitialAd?
+    
     init() {
+        fullScreenAd = InterstitialAd()
         UITabBar.appearance().barTintColor = UIColor.black
     
         self.location.startUpdating()
@@ -47,7 +49,7 @@ struct ContentView: SwiftUI.View {
     @State var posts: [Program] = []
     @State var lifeshows: [Program] = []
     @State var unitedshows: [Program] = []
-
+   
     
     /* functions for each stations shows */
     func getShows(){
@@ -86,14 +88,7 @@ struct ContentView: SwiftUI.View {
         NavigationView {
           GeometryReader { geo in
             Group {
-               /* if(self.lat == "0.0" && self.lon == "0.0"){
-                
-                    LocationDisabled()
-                        
-                        
-        
-                }
-                else*/ if self.stations.isEmpty {
+              if self.stations.isEmpty {
                 Text("Loading")
                 //this must be empty
                 //.navigationBarHidden(true)
@@ -113,7 +108,7 @@ struct ContentView: SwiftUI.View {
                                 
                         }
                // Divider()
-                VStack(alignment: .leading){
+               VStack(alignment: .leading){
                     Spacer(minLength: 2)
                         //STATIONS
                         Text("Our Stations")
@@ -132,11 +127,13 @@ struct ContentView: SwiftUI.View {
                                                         print(station.name)
                                                         self.errorDetail.toggle()
                                                     }else{
+                                                   
                                                     Flurry.logEvent("Station_Change", withParameters: ["name": station.name])
                                                     AdStichrApi.station = station.name
                                                     MusicPlayer.shared.startBackgroundMusic(url:station.listenlive, type: "radio")
                                                         self.showingDetail.toggle()
                                                     }
+                                                    
                                                    
                                                    }) {
                                                     
@@ -146,7 +143,7 @@ struct ContentView: SwiftUI.View {
                                                             .resizable()
                                                             .renderingMode(.original)
                                                             .frame(width:geo.size.width, height:geo.size.width / 2.5)
-                                                            
+                                                            .accessibilityLabel("Seems we are having connection issues, please check your network connection.")
                                                             .sheet(isPresented: self.$showingDetail) {
                                                                 MediaPlayerView()
                                                             }
@@ -163,6 +160,7 @@ struct ContentView: SwiftUI.View {
                                                                 MediaPlayerView()
                                                             }
                                                             .fullScreenCover(isPresented: self.$errorDetail, content: NetworkOutageView.init)
+                                                            .accessibilityLabel(station.name)
                                                         }
                                                             
                                                     } else {
@@ -198,7 +196,9 @@ struct ContentView: SwiftUI.View {
                                                 
                                             }.frame(height: geo.size.width / 2.5)
                         }.frame(height: geo.size.width / 2.5)
-                }
+                    }
+                    
+                    
                     VStack(alignment: .leading){
                     Divider()
                     //PODCAST
@@ -225,7 +225,7 @@ struct ContentView: SwiftUI.View {
                                             .renderingMode(.original)
                                             .frame(width:geo.size.width / 3, height:geo.size.width / 3)
                                         
-                                    }
+                                    }.accessibilityLabel(post.title)
                                     
                                 }
                             }
@@ -235,7 +235,8 @@ struct ContentView: SwiftUI.View {
                         }.frame(height: geo.size.width / 3)
                     }.frame(height: geo.size.width / 3)
                    
-                }
+                    }
+                   
                     VStack(alignment: .leading){
                     //United SHOWS
                     Divider()
@@ -260,11 +261,11 @@ struct ContentView: SwiftUI.View {
                                                 
                                                     NavigationLink(destination: Podcasts(post: post)){
                                                    
-                                                     KFImage(URL(string: post.icon),  options: [.processor(ResizingImageProcessor(referenceSize: .init(width: geo.size.width / 4,height:geo.size.width / 3)))])
-                                                        .resizable()
-                                                        .renderingMode(.original)
-                                                        .frame(width:geo.size.width / 3, height:geo.size.width / 3)
-                                                    }
+                                                     KFImage(URL(string: post.icon)!)
+                                                            .resizable()
+                                                            //.aspectRatio(contentMode: .fill)
+                                                            .frame(width:geo.size.width / 3, height:geo.size.width / 3)
+                                                    }.accessibilityLabel(post.title)
                                                     }
                                                 }
                                             
@@ -288,11 +289,10 @@ struct ContentView: SwiftUI.View {
                                                 //return
                                                 NavigationLink(destination: Podcasts(post: post)){
                                                
-                                                 KFImage(URL(string: post.icon),  options: [.processor(ResizingImageProcessor(referenceSize: .init(width: geo.size.width / 4,height:geo.size.width / 3)))])
+                                                 KFImage(URL(string: post.icon)!)
                                                     .resizable()
-                                                    .renderingMode(.original)
                                                     .frame(width:geo.size.width / 3, height:geo.size.width / 3)
-                                                }
+                                                }.accessibilityLabel(post.title)
                                             }
                                             
                                             
@@ -305,11 +305,10 @@ struct ContentView: SwiftUI.View {
                 }
             
             }
+                 
             }
                 
             }
-                           //.navigationBarTitle("")
-                           //.navigationBarBackButtonHidden(true)
                            .navigationBarHidden(true)
             }
         
@@ -318,20 +317,15 @@ struct ContentView: SwiftUI.View {
          }
         .navigationViewStyle(StackNavigationViewStyle())
         .onAppear {
-         //   self.navigationViewStyle(StackNavigationViewStyle())
-            
-            
             getShows()
-            
-            
-            
+            //self.fullScreenAd?.loadAd(withAdUnitId: "ca-app-pub-4999865903647931/3126345304")
             Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
                 self.speed = LocationManager.Speed
             }
     
         }
         
-        
+    
     }
 }
 

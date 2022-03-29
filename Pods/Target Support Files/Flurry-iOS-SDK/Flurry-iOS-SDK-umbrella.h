@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "FlurryMessaging.h"
 #import "Flurry.h"
 #import "FlurrySessionBuilder.h"
 #import "FlurryConsent.h"

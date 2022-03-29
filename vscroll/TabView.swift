@@ -7,7 +7,10 @@
 //
 
 import SwiftUI
+import AppTrackingTransparency
+import AdSupport
 
+import GoogleMobileAds
 
 struct TaView: View {
     @StateObject var monitor = Monitor()
@@ -28,6 +31,8 @@ struct TaView: View {
     }
     
     init() {
+        GADMobileAds.sharedInstance().start(completionHandler: nil)
+            
 //        print(self.data.connected)
         self.location.startUpdating()
     }
@@ -61,9 +66,32 @@ struct TaView: View {
                             
                         }
                 }.accentColor(Color.red)
+                .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+                                ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                                switch status {
+                                case .authorized:
+                                    // Tracking authorization dialog was shown
+                                    // and we are authorized
+                                    print("Authorized")
+                                    
+                                    // Now that we are authorized we can get the IDFA
+                                    print(ASIdentifierManager.shared().advertisingIdentifier)
+                                case .denied:
+                                    // Tracking authorization dialog was
+                                    // shown and permission is denied
+                                    print("Denied")
+                                case .notDetermined:
+                                    // Tracking authorization dialog has not been shown
+                                    print("Not Determined")
+                                case .restricted:
+                                    print("Restricted")
+                                @unknown default:
+                                    print("Unknown")
+                                }})
+                }
                 .onAppear(){
                     Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { (timer) in
-                        if monitor.score == 0{
+                        if self.monitor.score == 0{
                             DispatchQueue.main.asyncAfter(deadline: .now()) {
                                 self.errorDetail = true
                             }
@@ -74,7 +102,7 @@ struct TaView: View {
                 }
                 .fullScreenCover(isPresented: self.$errorDetail, content: NetworkOutageView.init)
             } else {
-                // Fallback on earlier versions
+            //SUpport for backward compatiblity
             }
         }
     }
@@ -92,14 +120,17 @@ struct LocationDisabled: View {
         VStack{
             Spacer().frame(maxHeight: 100)
             Image(systemName: "location.fill").resizable().scaledToFit().frame(width: 100).foregroundColor(Color.white)
-            
+           
+            ScrollView {
             VStack{
-                 Text("Enable Location").font(.system(.largeTitle, design: .rounded)).bold().multilineTextAlignment(.leading).foregroundColor(Color.white)
+                Text("Enable Location").font(.system(.largeTitle, design: .rounded)).bold().multilineTextAlignment(.leading).foregroundColor(Color.white)
                  Text("You'll need to enable your location.\nIn order to use access these features").fontWeight(.light).multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true).padding(.all, 8).foregroundColor(Color.white)
                  Text("\u{2022} Win Prizes\n\n\u{2022} Change Stations\n\n\u{2022} Access Podcasts\n\n\u{2022} Request Songs\n\n\u{2022} And More").bold().multilineTextAlignment(.center).fixedSize(horizontal: false, vertical: true).padding(.all, 8).foregroundColor(Color.white)
                  
                 
-                Spacer()
+            }
+            }
+            VStack{
                 Button(action: {
                      self.location.requestLoc()
                 }) {
@@ -136,7 +167,7 @@ struct SaveGradientButtonStyle: ButtonStyle {
         configuration.label
             .foregroundColor(Color.black)
             .padding()
-            .background(LinearGradient(gradient: Gradient(colors: [Color.green, Color.green]), startPoint: .topLeading, endPoint: .bottomTrailing))
-            .cornerRadius(15.0)
+            .background(LinearGradient(gradient: Gradient(colors: [Color.green, Color.blue]), startPoint: UnitPoint(x: 0, y: 0), endPoint: UnitPoint(x: 1, y: 1)))
+            .cornerRadius(5.0)
     }
 }

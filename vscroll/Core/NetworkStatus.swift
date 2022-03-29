@@ -15,6 +15,7 @@ class Monitor: ObservableObject {
     @Published var status: NetworkStatus = .connected
   
     init() {
+        print("running monitor")
         monitor.pathUpdateHandler = { [weak self] path in
             guard let self = self else { return }
 

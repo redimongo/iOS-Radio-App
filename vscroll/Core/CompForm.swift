@@ -28,7 +28,7 @@ class CompForm {
         var DOBSend: String{
             return "\(UserSettings().dateofbirth)"
         }
-        let parameters = ["Enquiry":"Request Song","Program":"Fresh7@7","FirstName":UserSettings().firstname,"LastName":UserSettings().lastname,"DOB": DOBSend,"Song": Rsong, "Artist": Rartist]
+        let parameters = ["Enquiry":"Request Song","Program":"Fresh7@7","FirstName":UserSettings().firstname,"LastName":UserSettings().lastname,"Email":UserSettings().email,"DOB": DOBSend,"Song": Rsong, "Artist": Rartist]
 
             //create the url with URL
             let url = URL(string: "https://api.drn1.com.au/forms/fresh7at7Request")! //change the url
@@ -74,22 +74,60 @@ class CompForm {
                 }
             })
             task.resume()
+    }
+    
+    
+    
+    func areufunnyForm(RJoke: String){
+        var DOBSend: String{
+            return "\(UserSettings().dateofbirth)"
+        }
+        let parameters = ["competition":"Are U Funny","Program":"drivinguhome","FirstName":UserSettings().firstname,"LastName":UserSettings().lastname,"Email":UserSettings().email,"Mobile":UserSettings().mobile,"DOB": DOBSend,"field1": RJoke]
+       
+        //create the url with URL
+        let url = URL(string: "https://api.drn1.com.au/forms/areufunny")! //change the url
+
+        //create the session object
+        let session = URLSession.shared
+
+        //now create the URLRequest object using the url object
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST" //set http method as POST
+
+        do {
+            request.httpBody = try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted) // pass dictionary to nsdata object and set it as request body
+            print(try JSONSerialization.data(withJSONObject: parameters, options: .prettyPrinted))
         
-        
-        
-      /*  let locationurl = URL(string: "https://api.drn1.com.au:9000/listener?uuid=\(MusicPlayer.uuid ?? "")&song=\(Rsong)&artist=\(Rartist)&username=\(UserSettings().username)")!
-        //print(locationurl )
-        // print("location: \(MusicPlayer.uuid ?? "") lat: \(latitude), long: \(longitude)")
-         
-          URLSession.shared.dataTask(with: locationurl) { (data, res, err) in
-          DispatchQueue.main.async{
-           // print("The Server should of updated")
-            
-              //  guard let data = data else { return }
-                
+        } catch let error {
+            print(error.localizedDescription)
+        }
+
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+
+        //create dataTask using the session object to send data to the server
+        let task = session.dataTask(with: request as URLRequest, completionHandler: { data, response, error in
+
+            guard error == nil else {
+                return
             }
-             return
-        }.resume()*/
+
+            guard let data = data else {
+                return
+            }
+
+            do {
+                //create json object from data
+                if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
+                    print(json)
+                    // handle json...
+                }
+            } catch let error {
+                print("this ran error")
+                print(error.localizedDescription)
+            }
+        })
+        task.resume()
     }
 }
 
